@@ -4,7 +4,7 @@ import re
 def get_player_game(game_pgn, user_name):
     pass
 
-def get_player_color(game_pgn, username):
+def get_player_color(game_pgn):
     """
     Returns 'white', 'black', or None based on PGN and username
 
@@ -15,7 +15,8 @@ def get_player_color(game_pgn, username):
     Returns:
         str: 'white', 'black', or None
     """
-    pattern = rf'\[(\w+)\s+"{re.escape(username)}"\]'
+    userName = "aui129"
+    pattern = rf'\[(\w+)\s+"{re.escape(userName)}"\]'
     match = re.search(pattern, game_pgn)
 
     if match:
@@ -25,12 +26,14 @@ def get_player_color(game_pgn, username):
 
 Client.request_config["headers"]["User-Agent"] = ("MeChess/0.1 (Contact: Seancaspy@gmail.com)")
 
-# user_name = input("whats you user name?")
+user_name = input("enter user name: ")
+month = int(input("enter month: "))
+year = int(input("enter year: "))
 
 
-history = get_player_games_by_month("aui129", 2025, 11)
-print(history)
-# for game in history.games:
-#     print(f"you played as: {get_player_color(game.pgn, user_name)} and here's you game {get}")
+history = get_player_games_by_month(user_name, year, month)
+# print(history)
+for game in history.games:
+    print(f"you played as: {get_player_color(game.pgn)}")
 
 
